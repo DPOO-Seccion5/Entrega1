@@ -2,7 +2,9 @@ package modelo;
 
 public class Empleado{
 	
-	private int conductoresExtra;
+	private String nombre;
+	
+	private Cliente cliente;
 	
 
 }
