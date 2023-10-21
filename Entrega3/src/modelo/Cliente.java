@@ -40,8 +40,55 @@ public abstract class Cliente {
 	}
 	
 	
+	public String getNombre()
+	{
+		return nombre;
+	}
 	
+	public String getFechaNacimiento()
+	{
+		return fechaNacimiento;
+	}
 	
+	public String getNacionalidad()
+	{
+		return nacionalidad;
+	}
+	
+	public String getDatosContacto()
+	{
+		return datosContacto;
+	}
+	
+	public String getUsername()
+	{
+		return username;
+	}
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public DatosPago getDatosMetodoPago()
+	{
+		return datosMetodoPago;
+	}
+	
+	public Reserva getReserva()
+	{
+		return reserva;
+	}
+	
+	public DatosLicencia getLicencia()
+	{
+		return licencia;
+	}
+	
+	public List<ConductorExtra> getConductoresExtra()
+	{
+		return conductoresExtra;
+	}
 	
 	
 

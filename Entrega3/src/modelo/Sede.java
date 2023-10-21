@@ -21,5 +21,25 @@ public class Sede {
 		this.horaDeAtencion = laHoraAtencion;
 		this.empleados = losEmpleados;
 	}
+	
+	public String getNombre()
+	{
+		return nombre;
+	}
+	
+	public String getUbicacion()
+	{
+		return ubicacion;
+	}
+	
+	public String getHoraDeAtencion()
+	{
+		return horaDeAtencion;
+	}
+	
+	public List<Empleado> getEmpleados()
+	{
+		return empleados;
+	}
 
 }
