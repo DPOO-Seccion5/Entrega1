@@ -1,5 +1,5 @@
 package modelo;
 
-public class Empleado implements Usuario{
+public class Empleado{
 
 }

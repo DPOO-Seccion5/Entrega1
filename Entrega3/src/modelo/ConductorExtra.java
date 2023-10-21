@@ -1,5 +1,6 @@
 package modelo;
 
-public class ConductorExtra implements Usuario{
+public class ConductorExtra{
+
 
 }
