@@ -20,4 +20,26 @@ public class Categoria {
 		
 	}
 	
+	
+	public String getCategoria()
+	{
+		return categoria;
+	}
+	
+	public double getPrecio()
+	{
+		return precio;
+	}
+	
+	public String getTamaño()
+	{
+		return tamaño;
+	}
+	
+	public Tarifa getTarifa()
+	{
+		return tarifa;
+	}
+	
+	
 }

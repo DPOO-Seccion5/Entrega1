@@ -24,5 +24,34 @@ public class Disponibilidad {
 		this.fechaDisponibilidad = laFechaDisponibilidad;
 		this.cliente = elCliente;
 	}
+	
+	public boolean getIfAlquilado()
+	{
+		return alquilado;
+	}
+	
+	public String getUbicacion()
+	{
+		return ubicacion;
+	}
+	
+	public String getFechaDevolucion()
+	{
+		return fechaDevolucion;
+	}
 
+	public String getLugarDevolucion()
+	{
+		return lugarDevolucion;
+	}
+	
+	public String getFechaDisponibilidad()
+	{
+		return fechaDisponibilidad;
+	}
+	
+	public Cliente getCliente()
+	{
+		return cliente;
+	}
 }

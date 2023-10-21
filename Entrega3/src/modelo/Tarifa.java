@@ -2,7 +2,6 @@ package modelo;
 
 public class Tarifa {
 	
-	private String categoria;
 	
 	private double tarifaTempAlta;
 	
@@ -13,14 +12,34 @@ public class Tarifa {
 	private double tarifaConductorAdicional;
 	
 	
-	public Tarifa(String laCategoria, double laTarifaTempAlta, double laTarifaTempBaja, double laTarifaOtraSede, double laTarifaCondutorAdicional)
+	public Tarifa(double laTarifaTempAlta, double laTarifaTempBaja, double laTarifaOtraSede, double laTarifaCondutorAdicional)
 	{
-		this.categoria = laCategoria;
 		this.tarifaTempAlta = laTarifaTempAlta;
 		this.tarifaTempBaja = laTarifaTempBaja;
 		this.tarifaOtraSede = laTarifaOtraSede;
 		this.tarifaConductorAdicional = laTarifaCondutorAdicional;
 		
+	}
+	
+	
+	public double getTarifaAlta()
+	{
+		return tarifaTempAlta;
+	}
+	
+	public double getTarifaBaja()
+	{
+		return tarifaTempBaja;
+	}
+	
+	public double getTarifaOtraSede()
+	{
+		return tarifaOtraSede;
+	}
+	
+	public double getTarifaConductor()
+	{
+		return tarifaConductorAdicional;
 	}
 
 }
