@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 public abstract class Cliente {
 	
 	private String nombre;
@@ -20,8 +22,10 @@ public abstract class Cliente {
 	
 	private DatosLicencia licencia;
 	
+	private List<ConductorExtra> conductoresExtra;
 	
-	public Cliente(String elNombre, String laFechaNacimiento, String laNacionalidad, String losDatosContacto, String elUsername, String elPassword, DatosPago losDatosDePago, Reserva laReserva, DatosLicencia laLicencia)
+	
+	public Cliente(String elNombre, String laFechaNacimiento, String laNacionalidad, String losDatosContacto, String elUsername, String elPassword, DatosPago losDatosDePago, Reserva laReserva, DatosLicencia laLicencia, List<ConductorExtra> losConductoresExtra)
 	{
 		this.nombre = elNombre;
 		this.fechaNacimiento = laFechaNacimiento;
@@ -32,6 +36,7 @@ public abstract class Cliente {
 		this.datosMetodoPago = losDatosDePago;
 		this.reserva = laReserva;
 		this.licencia = laLicencia;
+		this.conductoresExtra = losConductoresExtra;
 	}
 	
 	
