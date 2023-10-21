@@ -29,5 +29,38 @@ public class Vehiculo {
 	
 	}
 	
+	public String getMarca()
+	{
+		return marca;
+	}
 	
+	public String getPlaca()
+	{
+		return placa;
+	}
+	
+	public String getModelo()
+	{
+		return modelo;
+	}
+	
+	public String getColor()
+	{
+		return color;
+	}
+	
+	public String getTipoTransmision()
+	{
+		return tipoTransmision;
+	}
+	
+	public Disponibilidad getDisponibilidad()
+	{
+		return disponibilidad;
+	}
+	
+	public Categoria getCategoria()
+	{
+		return categoria;
+	}
 }
