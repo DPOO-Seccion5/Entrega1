@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.List;
 
-public abstract class Cliente {
+public abstract class Cliente extends Usuario {
 	
 	private String nombre;
 	
@@ -67,7 +67,7 @@ public abstract class Cliente {
 	
 	public String getPassword()
 	{
-		return password;
+		return password;
 	}
 	
 	public DatosPago getDatosMetodoPago()
@@ -90,6 +90,12 @@ public abstract class Cliente {
 		return conductoresExtra;
 	}
 	
+	
+	public Reserva crearReserva(String ubicacion, Vehiculo vehiculo, Sede sedeRecogida,Sede sedeDevuelta,Cobros cobro, String fecha, String rangoHoras)
+	{
+		Reserva nuevaReserva = new Reserva(ubicacion, vehiculo, sedeRecogida,sedeDevuelta,cobro,fecha,rangoHoras);
+		return nuevaReserva;
+	}
 	
 
 }

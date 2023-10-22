@@ -22,5 +22,21 @@ public class Compañia {
 	}
 	
 	
+	public Inventario getInventario()
+	{
+		return inventario;
+	}
+	
+	public List<Sede> getSedes()
+	{
+		return sedes;
+	}
+	
+	public List<Cliente> getClientes()
+	{
+		return clientes;
+	}
+	
+	
 
 }

@@ -11,4 +11,16 @@ public class Inventario {
 	{
 		this.vehiculos = losVehiculos;
 	}
+	
+	
+	public List<Vehiculo> getVehiculos()
+	{
+		return vehiculos;
+	}
+	
+	public void añadirVehiculo(List<Vehiculo> vehiculos, Vehiculo nuevoVehiculo) 
+	{
+		vehiculos.add(nuevoVehiculo);
+		
+	}
 }

@@ -5,10 +5,27 @@ import java.util.List;
 public class AdministradorLocal {
 
 	
-	private List<Empleado> empleados;
 	
-	private List<Sede> sedes;
+	private Sede sede;
+
 	
-	private List<Cliente> clientes;
+	public List<Empleado> getEmpleados(Sede sede)
+	{
+		List<Empleado> empleados = sede.getEmpleados();
+		
+		return empleados;
+	}
+	
+	public void modificarEmpleados()
+	{
+		
+	}
+	
+	public void modificarClientes()
+	{
+		
+	}
+	
+	
 
 }

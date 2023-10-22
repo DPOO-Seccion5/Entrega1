@@ -41,5 +41,21 @@ public class Sede {
 	{
 		return empleados;
 	}
+	
+	public void setNombre(String nuevoNombre)
+	{
+		this.nombre = nuevoNombre;
+		
+	}
+	
+	public void setUbicacion(String nuevaUbicacion)
+	{
+		this.ubicacion = nuevaUbicacion;
+	}
+	
+	public void setHoraAtencion(String hora)
+	{
+		this.horaDeAtencion = hora;
+	}
 
 }
