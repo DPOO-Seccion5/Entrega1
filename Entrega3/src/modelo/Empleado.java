@@ -8,18 +8,21 @@ public class Empleado extends Usuario{
 	
 	private String password;
 	
-	private String datosContacto;
-	
 	private String numeroID;
 	
+	private String fechaNacimiento;
 	
-	public Empleado(String elNombre,String elUsername, String elPassword, String losDatosContacto, String elNumeroID)
+	private String nacionalidad;
+	
+	
+	public Empleado(String elNombre,String elUsername, String elPassword, String elNumeroID, String laNacionalidad, String laFechaNacimiento)
 	{
 		this.nombre = elNombre;
 		this.username = elUsername;
 		this.password = elPassword;
-		this.datosContacto = losDatosContacto;
 		this.numeroID = elNumeroID;
+		this.fechaNacimiento = laFechaNacimiento;
+		this.nacionalidad = laNacionalidad;
 	}
 
 	@Override
@@ -28,11 +31,6 @@ public class Empleado extends Usuario{
 		return nombre;
 	}
 
-	@Override
-	public String getDatosContacto() {
-		// TODO Auto-generated method stub
-		return datosContacto;
-	}
 
 	@Override
 	public String getNumeroID() {
@@ -76,6 +74,18 @@ public class Empleado extends Usuario{
 	public double getCobroTotal()
 	{
 		return (Double) null;
+	}
+
+	@Override
+	public String getNacionalidad() {
+		// TODO Auto-generated method stub
+		return nacionalidad;
+	}
+
+	@Override
+	public String getFechaNacimiento() {
+		// TODO Auto-generated method stub
+		return fechaNacimiento;
 	}
 	
 	

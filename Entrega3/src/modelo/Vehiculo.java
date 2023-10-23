@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.List;
+
 public class Vehiculo {
 
 	private String marca;
@@ -12,19 +14,17 @@ public class Vehiculo {
 	
 	private String tipoTransmision;
 	
-	private Disponibilidad disponibilidad;
 	
 	private Categoria categoria;
 	
 	
-	public Vehiculo(String laMarca, String laPlaca, String elModelo, String elColor, String elTipoTransmision, Disponibilidad laDisponibilidad, Categoria laCategoria) 
+	public Vehiculo(String laMarca, String laPlaca, String elModelo, String elColor, String elTipoTransmision, Categoria laCategoria) 
 	{
 		this.marca = laMarca;
 		this.placa = laPlaca;
 		this.modelo = elModelo;
 		this.color = elColor;
 		this.tipoTransmision = elTipoTransmision;
-		this.disponibilidad = laDisponibilidad;
 		this.categoria = laCategoria;
 	
 	}
@@ -54,13 +54,10 @@ public class Vehiculo {
 		return tipoTransmision;
 	}
 	
-	public Disponibilidad getDisponibilidad()
-	{
-		return disponibilidad;
-	}
 	
 	public Categoria getCategoria()
 	{
 		return categoria;
 	}
+	
 }

@@ -1,16 +1,17 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Cliente extends Usuario {
+public class Cliente extends Usuario {
 	
 	private String nombre;
+	
+	private String numID; 
 	
 	private String fechaNacimiento;
 	
 	private String nacionalidad;
-	
-	private String datosContacto;
 	
 	private String username;
 	
@@ -22,21 +23,20 @@ public abstract class Cliente extends Usuario {
 	
 	private DatosLicencia licencia;
 	
-	private List<ConductorExtra> conductoresExtra;
+	private ArrayList<ConductorExtra> conductoresExtra;
 	
 	
-	public Cliente(String elNombre, String laFechaNacimiento, String laNacionalidad, String losDatosContacto, String elUsername, String elPassword, DatosPago losDatosDePago, Reserva laReserva, DatosLicencia laLicencia, List<ConductorExtra> losConductoresExtra)
+	public Cliente(String elNombre, String elNumID,String laFechaNacimiento, String laNacionalidad, String elUsername, String elPassword, DatosLicencia laLicencia, ArrayList<ConductorExtra> losConductoresExtra, DatosPago losDatosMetodoPago)
 	{
 		this.nombre = elNombre;
+		this.numID = elNumID;
 		this.fechaNacimiento = laFechaNacimiento;
 		this.nacionalidad = laNacionalidad;
-		this.datosContacto = losDatosContacto;
 		this.username = elUsername;
 		this.password = elPassword;
-		this.datosMetodoPago = losDatosDePago;
-		this.reserva = laReserva;
 		this.licencia = laLicencia;
 		this.conductoresExtra = losConductoresExtra;
+		this.datosMetodoPago = losDatosMetodoPago;
 	}
 	
 	
@@ -53,11 +53,6 @@ public abstract class Cliente extends Usuario {
 	public String getNacionalidad()
 	{
 		return nacionalidad;
-	}
-	
-	public String getDatosContacto()
-	{
-		return datosContacto;
 	}
 	
 	public String getUsername()
@@ -95,6 +90,16 @@ public abstract class Cliente extends Usuario {
 	{
 		Reserva nuevaReserva = new Reserva(ubicacion, vehiculo, sedeRecogida,sedeDevuelta,cobro,fecha,rangoHoras);
 		return nuevaReserva;
+	}
+
+
+
+
+
+	@Override
+	public String getNumeroID() {
+		// TODO Auto-generated method stub
+		return numID;
 	}
 	
 

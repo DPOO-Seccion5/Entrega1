@@ -19,4 +19,47 @@ public class DatosPago {
 		this.numSeguridad = elNumSeguridad;
 	}
 
+
+	public String getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+
+	public String getFechaVencimiento() {
+		return fechaVencimiento;
+	}
+
+
+	public void setFechaVencimiento(String fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
+	}
+
+
+	public String getNombreTitular() {
+		return nombreTitular;
+	}
+
+
+	public void setNombreTitular(String nombreTitular) {
+		this.nombreTitular = nombreTitular;
+	}
+
+
+	public String getNumSeguridad() {
+		return numSeguridad;
+	}
+
+
+	public void setNumSeguridad(String numSeguridad) {
+		this.numSeguridad = numSeguridad;
+	}
+	
+	
+	
+
 }

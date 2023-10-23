@@ -8,16 +8,42 @@ public class DatosLicencia {
 	
 	private String fechaNacimiento;
 	
-	private String imagenDocumento;
 	
-	
-	public DatosLicencia(String elNumero, String elPaisExpedicion, String laFechaNacimiento, String laImagenDocumento)
+	public DatosLicencia(String elNumero, String elPaisExpedicion, String laFechaNacimiento)
 	{
 		this.numero = elNumero;
 		this.paisExpedicion = elPaisExpedicion;
 		this.fechaNacimiento = laFechaNacimiento;
-		this.imagenDocumento = laImagenDocumento;
-		
+	}
+
+
+	public String getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+
+	public String getPaisExpedicion() {
+		return paisExpedicion;
+	}
+
+
+	public void setPaisExpedicion(String paisExpedicion) {
+		this.paisExpedicion = paisExpedicion;
+	}
+
+
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 }

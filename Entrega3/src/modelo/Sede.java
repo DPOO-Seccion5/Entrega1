@@ -10,11 +10,11 @@ public class Sede {
 	
 	private String horaDeAtencion;
 	
-	private List<Empleado> empleados;
+	private String[] empleados;
 	
 	
 	
-	public Sede(String elNombre, String laUbicacion, String laHoraAtencion, List<Empleado> losEmpleados) 
+	public Sede(String elNombre, String laUbicacion, String laHoraAtencion, String[] losEmpleados) 
 	{
 		this.nombre = elNombre;
 		this.ubicacion = laUbicacion;
@@ -37,7 +37,7 @@ public class Sede {
 		return horaDeAtencion;
 	}
 	
-	public List<Empleado> getEmpleados()
+	public String[] getEmpleados()
 	{
 		return empleados;
 	}
