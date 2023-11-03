@@ -12,6 +12,7 @@ import modelo.Cliente;
 import modelo.ConductorExtra;
 import modelo.DatosLicencia;
 import modelo.DatosPago;
+import modelo.Empleado;
 import procesamiento.Compañia;
 import procesamiento.Loader;
 
@@ -193,8 +194,8 @@ public class Consola {
 				String nombreTitular = input("Por favor digite el nombre del titular");
 				String cvc = input("Por favor digite el codigo de seguridad");
 				
-				Cliente informacion = crearCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numero, paisExpedicion, numeroTarjeta, fechaVenicimiento, nombreTitular, cvc);
-				loader.addCliente(username, informacion);
+				Cliente informacion = compañia.crearCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numero, paisExpedicion, numeroTarjeta, fechaVenicimiento, nombreTitular, cvc);
+				
 			}
 			else if (respuesta.equals("empleado")) 
 			{
@@ -205,28 +206,20 @@ public class Consola {
 				String fechaNacimiento = input("Por favor digite su fecha de nacimiento");
 				String nacionalidad = input("Por favor digite su nacionalidad");
 				
-				compañia.crearEmpleado(nombre, username, password, numID, nacionalidad, fechaNacimiento);
+				Empleado nuevoEmpleado = compañia.crearEmpleado(nombre, username, password, numID, nacionalidad, fechaNacimiento);
 				
 			}
 
 
 		}
 		
-		public Cliente crearCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc)
-		{
-			DatosLicencia licencia = new DatosLicencia(numeroLicencia, paisExpedicion, fechaNacimiento);
-			DatosPago tarjeta = new DatosPago(numeroTarjeta, fechaVencimiento,nombreTitular,cvc);
-			ArrayList<ConductorExtra> conductoresExtra = new ArrayList();
-			Cliente cliente = new Cliente(nombre,numID, fechaNacimiento, nacionalidad, username, password, licencia,conductoresExtra,tarjeta);
-			return cliente;
-			
-		}
+		
 		
 ///////////////////////////////////////////////////////////cargar archivos/////////////////////////////////////
 
 		public void cargar_los_datos() {
 			Loader loader = new Loader();
-			ArrayList<Map<String,String>> mapasDatos = loader.CargarInformacion();	
+			Compañia compañia = loader.CargarInformacion();	
 			
 				
 		}

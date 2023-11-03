@@ -3,6 +3,8 @@ package modelo;
 import java.util.List;
 
 public class Vehiculo {
+	
+	private String nombre;
 
 	private String marca;
 	
@@ -18,8 +20,9 @@ public class Vehiculo {
 	private Categoria categoria;
 	
 	
-	public Vehiculo(String laMarca, String laPlaca, String elModelo, String elColor, String elTipoTransmision, Categoria laCategoria) 
+	public Vehiculo(String elNombre,String laMarca, String laPlaca, String elModelo, String elColor, String elTipoTransmision, Categoria laCategoria) 
 	{
+		this.nombre = elNombre;
 		this.marca = laMarca;
 		this.placa = laPlaca;
 		this.modelo = elModelo;
@@ -58,6 +61,14 @@ public class Vehiculo {
 	public Categoria getCategoria()
 	{
 		return categoria;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 }

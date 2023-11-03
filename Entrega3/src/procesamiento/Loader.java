@@ -14,6 +14,7 @@ import modelo.ConductorExtra;
 import modelo.DatosLicencia;
 import modelo.DatosPago;
 import modelo.Empleado;
+import modelo.Inventario;
 import modelo.Sede;
 import modelo.Tarifa;
 import modelo.Vehiculo;
@@ -26,36 +27,66 @@ public class Loader {
 
 			}
 
-		public ArrayList CargarInformacion() {
+		public Compañia CargarInformacion() {
 
 		
 
-			ArrayList mapas = new ArrayList();
+			ArrayList listaSedes = new ArrayList();
+			
+			ArrayList inventario = new ArrayList();
+			
+			ArrayList listaClientes = new ArrayList();
+			
+			ArrayList listaEmpleados = new ArrayList();
 
 			Map<String, Sede> sedes=CargarInformacionSedes();
-
-			mapas.add(sedes);
-
+			
+			for (Sede sede : sedes.values())
+			{
+				listaSedes.add(sede);
+			}
+			
+			System.out.println(listaSedes);
+			
+			
 			Map<String, String> carrosXCategoria = CargarCarrosPorCategoria();
 
-			mapas.add(carrosXCategoria);
+		
 
 			Map<String,Vehiculo> carros = CargarCarros();
 			
+			for (Vehiculo carro : carros.values())
+			{
+				inventario.add(carro);
+			}
+			
+			Inventario inventario1 = new Inventario(inventario);
+			
+			
 			
 
-			mapas.add(carros.get(0));
-
 			Map<String, Cliente> clientes = CargarListaClientes();
+			
+			for (Cliente cliente: clientes.values())
+			{
+				listaClientes.add(cliente);
+			}
 
-			mapas.add(clientes);
 
 			Map<String, Empleado> empleados = CargarListaEmpleados();
+			
+			for (Empleado empleado : empleados.values())
+			{
+				listaEmpleados.add(empleado);
+			}
 
-			mapas.add(empleados);
+			
+			Compañia compañia = new Compañia(inventario1,listaSedes,listaClientes,listaEmpleados);
 
+			
+			
 
-			return mapas;
+			return compañia;
 
 			
 
@@ -93,7 +124,7 @@ public class Loader {
 
 	                 titleInfoMap.put(title, info);
 
-	                 System.out.println(title + "=" + info);
+	                 
 
 	             }
 
@@ -203,10 +234,10 @@ public class Loader {
 
 		
 
-		private Map CargarCarros(){
+		private Map<String, Vehiculo> CargarCarros(){
 
 			Map<String, Vehiculo> titleInfoMap = new HashMap<>();
-			ArrayList inventario = new ArrayList();
+			
 
 			try {
 
@@ -257,10 +288,10 @@ public class Loader {
 	                 
 	                 Categoria categoria = new Categoria(nombre,precio,tamaño,tarifa);
 	                     
-	                 Vehiculo vehiculo = new Vehiculo(marca,placa,modelo,color,transmision,categoria);
+	                 Vehiculo vehiculo = new Vehiculo(title,marca,placa,modelo,color,transmision,categoria);
 	                 
 	                 
-	                 inventario.add(vehiculo);
+	                
 	                 
 
 	                 titleInfoMap.put(title, vehiculo);
@@ -284,11 +315,6 @@ public class Loader {
 				
 
 			}
-
-			ArrayList respuesta = new ArrayList();
-			
-			respuesta.add(titleInfoMap);
-			respuesta.add(inventario);
 
 			return titleInfoMap;
 
@@ -469,15 +495,7 @@ public class Loader {
 
 		
 
-		public void addCliente(String nombreSede,Cliente infoSede) {
-
-			Map<String, Cliente>  map = CargarListaClientes();
-
-			map.put(nombreSede, infoSede);
-
-			saveClientes(map);
-
-		}
+		
 
 		
 
@@ -738,7 +756,7 @@ public class Loader {
 
 	                 titleInfoMap.put(title, sede);
 
-	                 System.out.println(title + "=" + info);
+	                 
 
 	             }
 

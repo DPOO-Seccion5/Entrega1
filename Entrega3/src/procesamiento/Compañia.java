@@ -5,6 +5,7 @@ import procesamiento.Loader;
 
 import modelo.*;
 import java.util.List;
+import java.util.Map;
 
 
 public class Compañia {
@@ -44,6 +45,8 @@ public class Compañia {
 	{
 		return clientes;
 	}
+	
+	
 	
 	public boolean logIn(String username, String password)
 	{
@@ -90,12 +93,34 @@ public class Compañia {
 	}
 	
 	
+	
+	
+	
+	public Cliente crearCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc)
+	{
+		DatosLicencia licencia = new DatosLicencia(numeroLicencia, paisExpedicion, fechaNacimiento);
+		DatosPago tarjeta = new DatosPago(numeroTarjeta, fechaVencimiento,nombreTitular,cvc);
+		ArrayList<ConductorExtra> conductoresExtra = new ArrayList();
+		Cliente cliente = new Cliente(nombre,numID, fechaNacimiento, nacionalidad, username, password, licencia,conductoresExtra,tarjeta);
+		clientes.add(cliente);
+		return cliente;
+		
+	}
+	
+	public void addCliente(Cliente elCliente) {
+
+		clientes.add(elCliente);
+
+	}
+	
 
 	
-	public void crearEmpleado(String nombre, String username, String password, String numID, String nacionalidad, String fechaNacimiento)
+	public Empleado crearEmpleado(String nombre, String username, String password, String numID, String nacionalidad, String fechaNacimiento)
 	{
 		Empleado empleado = new Empleado(nombre,username,password,numID,nacionalidad,fechaNacimiento);
 		empleados.add(empleado);
+		
+		return empleado;
 		
 	}
 	
