@@ -48,10 +48,13 @@ public class Compañia {
 	
 	
 	
-	public boolean logIn(String username, String password)
+	public Usuario logIn(String username, String password)
 	{
 		
 		boolean respuesta = false;
+		
+		Usuario usuario = null;
+		
 		
 		if (username.contains("empleado"))
 		{
@@ -62,13 +65,17 @@ public class Compañia {
 			
 				if ((username.equals(user)) && (password.equals(pass)))
 				{
+					usuario = y;
 					respuesta = true;
 				}
 				else 
 				{
 					respuesta = false;
 				}	
-			}	
+			}
+			
+			
+			
 		}
 		else
 		{
@@ -80,6 +87,7 @@ public class Compañia {
 				if ((username.equals(user)) && (password.equals(pass)))
 				{
 					respuesta = true;
+					usuario = x;
 				}
 				else 
 				{
@@ -88,7 +96,9 @@ public class Compañia {
 			}
 		}
 		
-		return respuesta;
+	 
+		
+		return usuario;
 		
 	}
 	
@@ -103,15 +113,12 @@ public class Compañia {
 		ArrayList<ConductorExtra> conductoresExtra = new ArrayList();
 		Cliente cliente = new Cliente(nombre,numID, fechaNacimiento, nacionalidad, username, password, licencia,conductoresExtra,tarjeta);
 		clientes.add(cliente);
+		Loader.saveCliente(nombre, numID, fechaNacimiento,nacionalidad, username, password,numeroLicencia, paisExpedicion, numeroTarjeta, fechaVencimiento,  nombreTitular, cvc);
 		return cliente;
 		
 	}
 	
-	public void addCliente(Cliente elCliente) {
 
-		clientes.add(elCliente);
-
-	}
 	
 
 	
@@ -119,6 +126,7 @@ public class Compañia {
 	{
 		Empleado empleado = new Empleado(nombre,username,password,numID,nacionalidad,fechaNacimiento);
 		empleados.add(empleado);
+		Loader.saveEmpleado(nombre,username,password,numID,nacionalidad,fechaNacimiento);
 		
 		return empleado;
 		

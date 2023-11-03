@@ -46,14 +46,14 @@ public class Loader {
 				listaSedes.add(sede);
 			}
 			
-			System.out.println(listaSedes);
 			
 			
-			Map<String, String> carrosXCategoria = CargarCarrosPorCategoria();
 
 		
 
 			Map<String,Vehiculo> carros = CargarCarros();
+			
+			
 			
 			for (Vehiculo carro : carros.values())
 			{
@@ -61,6 +61,8 @@ public class Loader {
 			}
 			
 			Inventario inventario1 = new Inventario(inventario);
+			
+			
 			
 			
 			
@@ -79,9 +81,15 @@ public class Loader {
 			{
 				listaEmpleados.add(empleado);
 			}
+			
+			
+			
 
 			
 			Compañia compañia = new Compañia(inventario1,listaSedes,listaClientes,listaEmpleados);
+			System.out.println(compañia);
+			
+			
 
 			
 			
@@ -256,13 +264,17 @@ public class Loader {
 	         while ((line = reader.readLine()) != null) {
 
 	             String[] parts = line.split("=");
+	             
+	          
 
 	             if (parts.length == 2) {
+	            	 
 
 	                 String title = parts[0];
 
 	                 String info = parts[1];
 	                 String[] parts1 = parts[1].split(";");
+	                 
 	                 
 	                 String marca = parts1[0];
 	                 String placa = parts1[1];
@@ -272,19 +284,22 @@ public class Loader {
 	                 
 	                 String datosCategoria = parts1[5].replace("{", "");
 	                 datosCategoria = datosCategoria.replace("}", "");
+	               
+	         
+	                 
 	                 String[] datosCategoria1 = datosCategoria.split(",");
 	                 String nombre = datosCategoria1[0];
 	                 int precio = Integer.parseInt(datosCategoria1[1]);
 	                 String tamaño = datosCategoria1[2];
-	                 String datosTarifa = datosCategoria1[3].replace("{", "");
-	                 datosTarifa = datosTarifa.replace("}", "");
-	                 String[] datosTarifa1 = datosCategoria.split(",");
-	                 int tarifaAlta = Integer.parseInt(datosTarifa1[0]);
-	                 int tarifaBaja = Integer.parseInt(datosTarifa1[1]);
-	                 int tarifaSede = Integer.parseInt(datosTarifa1[2]);
-	                 int tarifaConductor = Integer.parseInt(datosTarifa1[3]);
+	            
+	                 int tarifaAlta = Integer.parseInt(datosCategoria1[3]);
+	                 int tarifaBaja = Integer.parseInt(datosCategoria1[4]);
+	                 int tarifaSede = Integer.parseInt(datosCategoria1[5]);
+	                 int tarifaConductor = Integer.parseInt(datosCategoria1[6]);
 	                 
 	                 Tarifa tarifa = new Tarifa(tarifaAlta,tarifaBaja,tarifaSede,tarifaConductor);
+	                 
+	                
 	                 
 	                 Categoria categoria = new Categoria(nombre,precio,tamaño,tarifa);
 	                     
@@ -296,7 +311,7 @@ public class Loader {
 
 	                 titleInfoMap.put(title, vehiculo);
 
-	                 System.out.println(title + "=" + info);
+	               
 
 	             }
 
@@ -326,7 +341,7 @@ public class Loader {
 
 		
 
-		public void addCarros(String nombreSede,Vehiculo infoSede) {
+		/*public void addCarros(String nombreSede,Vehiculo infoSede) {
 
 			Map<String, Vehiculo>  map = CargarCarros();
 
@@ -403,6 +418,7 @@ public class Loader {
 				}
 
 		}
+		*/
 
 		
 
@@ -427,45 +443,54 @@ public class Loader {
 	         while ((line = reader.readLine()) != null) {
 
 	             String[] parts = line.split("=");
-
+	             
+	             
 	             if (parts.length == 2) {
 
 	                 String title = parts[0];
 	                 String info = parts[1];
 	                 
-	                 String[] parts1 = parts[1].split(";");
 	                 
+
+	                 
+	                 String[] parts1 = info.split(";");
+	                 
+	                 
+	                 
+	                
 	                 String nombre = parts1[0];
 	                 String fecha = parts1[1];
-	                 String numId = parts1[2];
-	                 String nacionalidad = parts1[3];
-	                 String password = parts1[4];
+	               	 String numId = parts1[2];
+	               	 String nacionalidad = parts1[3];
+	               	 String password = parts1[4];
+	                
+	               	 String datosTarjeta = parts1[5].replace("{", "");
+	               	 datosTarjeta = datosTarjeta.replace("}", "");
+	               	 String[] datosTarjeta1 = datosTarjeta.split(",");
+	               	 
+	               	 String numeroTar = datosTarjeta1[0];
+	               	 String fechaVencimiento = datosTarjeta1[1];
+	               	 String nombreTar = datosTarjeta1[2];
+	               	 String cvc = datosTarjeta1[3];
+                	 DatosPago claseTarjeta = new DatosPago(numeroTar,fechaVencimiento,nombreTar,cvc);
+	               
+                	 String datosLicencia = parts1[6].replace("{", "");
+	               	 datosLicencia = datosLicencia.replace("}", "");
+	               	 String[] datosLicencia1 = datosLicencia.split(",");
+	               	 String numeroLic = datosLicencia1[0];
+	               	 String paisExpedicion = datosLicencia1[1];
+	               	 String fechaVen = datosLicencia1[2];
+	               	 DatosLicencia claseLicencia = new DatosLicencia(numeroLic,paisExpedicion,fechaVen);
 	                 
-	                 String datosTarjeta = parts1[5].replace("{", "");
-	                 datosTarjeta = datosTarjeta.replace("}", "");
-	                 String[] datosTarjeta1 = datosTarjeta.split(",");
-	                 String numeroTar = datosTarjeta1[0];
-	                 String fechaVencimiento = datosTarjeta1[1];
-	                 String nombreTar = datosTarjeta1[2];
-	                 String cvc = datosTarjeta1[3];
-	                 DatosPago claseTarjeta = new DatosPago(numeroTar,fechaVencimiento,nombreTar,cvc);
+	               	 ArrayList<ConductorExtra> conductoresExtra = new ArrayList();
 	                 
-	                 String datosLicencia = parts1[6].replace("{", "");
-	                 datosLicencia = datosLicencia.replace("}", "");
-	                 String[] datosLicencia1 = datosLicencia.split(",");                 
-	                 String numeroLic = datosLicencia1[0];
-	                 String paisExpedicion = datosLicencia1[1];
-	                 String fechaVen = datosLicencia1[2];
-	                 DatosLicencia claseLicencia = new DatosLicencia(numeroLic,paisExpedicion,fechaVen);
-	                 
-	                 ArrayList<ConductorExtra> conductoresExtra = new ArrayList();
-	                 
-	                 Cliente cliente = new Cliente(nombre,numId,fecha,nacionalidad,title,password,claseLicencia,conductoresExtra,claseTarjeta);
+	               	 Cliente cliente = new Cliente(nombre,numId,fecha,nacionalidad,title,password,claseLicencia,conductoresExtra,claseTarjeta);
 	                 
 
-	                 titleInfoMap.put(title, cliente);
-
-	                 System.out.println(title + "=" + info);
+                	 titleInfoMap.put(title, cliente);
+                	 
+	                 
+	                 
 
 	             }
 
@@ -492,6 +517,46 @@ public class Loader {
 			
 
 		}
+		
+		
+		public static void saveCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc)
+		{
+			FileWriter fw = null;
+			BufferedWriter bw = null;
+					
+			
+			try {
+				String data = username +"="+nombre+";"+fechaNacimiento+";"+numID+";"+nacionalidad+";"+password+";"+"{"+numeroTarjeta+","+fechaVencimiento+","+nombreTitular+","+cvc+"}"+";"+"{"+numeroLicencia+","+paisExpedicion+","+fechaNacimiento+"}";
+				
+				File file = new File("./Data/listaClientes");
+				fw = new FileWriter(file.getAbsoluteFile(),true);
+				bw = new BufferedWriter(fw);
+				bw.write(data);
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally
+			{
+				try 
+				{
+					if (bw != null)
+						bw.close();
+					if (fw != null)
+						fw.close();
+					
+				}
+				catch(IOException ex)
+				{
+					ex.printStackTrace();
+				}
+				
+			}
+			
+	
+			
+		}
 
 		
 
@@ -499,7 +564,7 @@ public class Loader {
 
 		
 
-		public void deleteClientes(String nombreSede) {
+		/*public void deleteClientes(String nombreSede) {
 
 			Map<String, Cliente>  map = CargarListaClientes();
 
@@ -564,6 +629,7 @@ public class Loader {
 				}
 
 		}
+		*/
 
 		
 
@@ -606,7 +672,6 @@ public class Loader {
 
 	                 titleInfoMap.put(title, empleado);
 
-	                 System.out.println(title + "=" + info);
 
 	             }
 
@@ -636,7 +701,7 @@ public class Loader {
 
 		
 
-		private void addEmpleados(String nombreSede,Empleado infoSede) {
+		/*private void addEmpleados(String nombreSede,Empleado infoSede) {
 
 			Map<String, Empleado>  map = CargarListaEmpleados();
 
@@ -683,34 +748,43 @@ public class Loader {
 			
 
 		}
+		*/
 
-		private void saveEmpleados(Map<String, Empleado> map) {
+		public static void saveEmpleado(String nombre,String username,String password,String numID,String nacionalidad,String fechaNacimiento)
+		{
 
-			 try {
-
-			 BufferedWriter writer = new BufferedWriter(new FileWriter("./Data/listaEmpleados"));
-
-	         for (Map.Entry<String, Empleado> entry : map.entrySet()) {
-
-	             writer.write(entry.getKey() + "=" + entry.getValue() + "\n");
-
-	         }
-
-	         writer.close();
-
-	 
-
-	         System.out.println("Documento Editado correctamente.");
-
-			 }
-
-			 catch(IOException e){
-
-					e.printStackTrace();
-
+			FileWriter fw = null;
+			BufferedWriter bw = null;
 					
-
+			
+			try {
+				String data = username +"="+nombre+";"+fechaNacimiento+";"+numID+";"+nacionalidad+";"+password;
+				
+				File file = new File("./Data/listaEmpleados");
+				fw = new FileWriter(file.getAbsoluteFile(),true);
+				bw = new BufferedWriter(fw);
+				bw.write(data);
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally
+			{
+				try 
+				{
+					if (bw != null)
+						bw.close();
+					if (fw != null)
+						fw.close();
+					
 				}
+				catch(IOException ex)
+				{
+					ex.printStackTrace();
+				}
+				
+			}
 
 		}
 

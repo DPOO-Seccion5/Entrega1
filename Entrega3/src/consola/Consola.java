@@ -13,6 +13,7 @@ import modelo.ConductorExtra;
 import modelo.DatosLicencia;
 import modelo.DatosPago;
 import modelo.Empleado;
+import modelo.*;
 import procesamiento.Compañia;
 import procesamiento.Loader;
 
@@ -116,6 +117,14 @@ public class Consola {
 
 		{
 
+			System.out.println("\nOpciones de la aplicación\n");
+
+			System.out.println("1. Log in");
+
+			System.out.println("2. Sing in");
+
+			System.out.println("3. Salir de la aplicación\n");	
+
 			boolean continuar = true;
 
 
@@ -143,14 +152,7 @@ public class Consola {
 
 			}	
 
-			System.out.println("\nOpciones de la aplicación\n");
-
-			System.out.println("1. Log in");
-
-			System.out.println("2. Sing in");
-
-			System.out.println("3. Salir de la aplicación\n");	
-
+		
 
 			}
 
@@ -166,7 +168,18 @@ public class Consola {
 
 			String contraseña = input("Por favor digite su clave");	
 
-			compañia.logIn(usuario,contraseña);
+			Usuario elUsuario = compañia.logIn(usuario,contraseña);
+			
+			String reserva = input("Desea crear una reserva?");
+			
+			if (reserva.equals("si"))
+			{
+				ejecutarCrearReserva(elUsuario);			
+			}
+			else
+			{
+				menuRegistro();
+			}
 
 		}
 
@@ -196,6 +209,11 @@ public class Consola {
 				
 				Cliente informacion = compañia.crearCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numero, paisExpedicion, numeroTarjeta, fechaVenicimiento, nombreTitular, cvc);
 				
+				if (informacion != null)
+					System.out.println("Se creo correctamente el usuario!");
+				else
+					System.out.println("No se creo el usuario");
+				
 			}
 			else if (respuesta.equals("empleado")) 
 			{
@@ -208,9 +226,20 @@ public class Consola {
 				
 				Empleado nuevoEmpleado = compañia.crearEmpleado(nombre, username, password, numID, nacionalidad, fechaNacimiento);
 				
+				
 			}
+			
 
 
+		}
+		
+///////////////////////////////////////////////////////////Creacion de Reserva////////////////////////////////////////////////
+		
+		public void ejecutarCrearReserva(Usuario usuario)
+		{
+			
+			
+	
 		}
 		
 		
@@ -219,7 +248,8 @@ public class Consola {
 
 		public void cargar_los_datos() {
 			Loader loader = new Loader();
-			Compañia compañia = loader.CargarInformacion();	
+			compañia = loader.CargarInformacion();	
+			
 			
 				
 		}
