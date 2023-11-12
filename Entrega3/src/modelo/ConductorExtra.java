@@ -11,4 +11,17 @@ public class ConductorExtra{
 		this.licencia = laLicencia;
 	}
 
+
+	public DatosLicencia getLicencia() {
+		return licencia;
+	}
+
+
+	public void setLicencia(DatosLicencia licencia) {
+		this.licencia = licencia;
+	}
+	
+	
+	
+
 }

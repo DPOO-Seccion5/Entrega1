@@ -626,7 +626,7 @@ public class Loader {
 
 		
 
-		private void editClientes(Reserva reserva, Cliente cliente) {
+	public static void editClientes(Reserva reserva, Cliente cliente) {
 			
 			String archivo = "./Data/listaClientes";
 			
@@ -642,13 +642,66 @@ public class Loader {
 			
 			DatosPago infoTar = cobro.getInfoTarjeta();
 			
+			String numeroTar = infoTar.getNumero();
+			String fechaVen = infoTar.getFechaVencimiento();
+			String nomtit = infoTar.getNombreTitular();
+			String numSeg = infoTar.getNumSeguridad();
+			
 			String fecha = reserva.getFecha();
+			String rangoH = reserva.getRangoHoras();
 			
+			ArrayList<ConductorExtra> conExtra = reserva.getConductoresExtra();
 			
-			
-
-			
-
+			try
+			{
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(archivo));
+				StringBuilder contenido = new StringBuilder();
+				String linea;
+				while ((linea = bufferedReader.readLine()) != null)
+				{
+					String[] parts = linea.split("=");
+					
+					if(usuario.equals(parts[0]))
+					{
+						String[] info = parts[1].split(";");
+						info[7] = "{"+categoria+","+sedeRecogida+","+sedeDevuelta+","+"{"+numeroTar+","+fechaVen+","+nomtit+","+numSeg+","+fecha+","+rangoH+"[";
+						String nuevalinea = "";
+						for(ConductorExtra conductor: conExtra)
+						{
+							DatosLicencia dl = conductor.getLicencia();
+							String numlic = dl.getNumero();
+							String paisex = dl.getPaisExpedicion();
+							String fechaE = dl.getFechaNacimiento();
+							nuevalinea += numlic+","+paisex+","+fechaE+",";
+						}
+						info[7] = info[7]+nuevalinea+"]"+"}";
+						String lineaFinal = parts[0]+"="+info[0]+";"+info[1]+";"+info[2]+";"+info[3]+";"+info[4]+";"+info[5]+";"+info[6]+";"+info[7];
+						
+						contenido.append(lineaFinal).append(System.lineSeparator());
+						
+					}
+					else
+					{
+						contenido.append(linea).append(System.lineSeparator());
+					}
+					
+				}
+				bufferedReader.close();
+				
+				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(archivo));
+		        bufferedWriter.write(contenido.toString());
+		        bufferedWriter.close();
+				
+			}
+			catch (FileNotFoundException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+     		
 		}
 
 		private void saveClientes(Map<String, Cliente> map) {

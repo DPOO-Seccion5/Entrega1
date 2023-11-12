@@ -146,6 +146,7 @@ public class Compañia {
 					cambioSede = 0;
 				}
 				else
+
 				{
 					cambioSede = tarifa.getTarifaOtraSede();
 				}
@@ -166,6 +167,8 @@ public class Compañia {
 		Reserva reserva = new Reserva(categoria, sedeRecogida, sedeDevuelta, cobro, fecha, rangoHor, conductoresExtra);
 		
 		cliente.setReserva(reserva);
+		
+		Loader.editClientes(reserva,cliente);
 		
 		return precio;
 		
