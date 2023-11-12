@@ -12,17 +12,16 @@ public class Disponibilidad {
 	
 	private String fechaDisponibilidad;
 	
-	private Cliente cliente;
 	
 	
-	public Disponibilidad(boolean estaAlquilado, String laUbicacion, String laFechaDevolucion, String elLugarDevolucion, String laFechaDisponibilidad, Cliente elCliente)
+	public Disponibilidad(boolean estaAlquilado, String laUbicacion, String laFechaDevolucion, String elLugarDevolucion, String laFechaDisponibilidad)
 	{
 		this.alquilado = estaAlquilado;
 		this.ubicacion = laUbicacion;
 		this.fechaDevolucion = laFechaDevolucion;
 		this.lugarDevolucion = elLugarDevolucion;
 		this.fechaDisponibilidad = laFechaDisponibilidad;
-		this.cliente = elCliente;
+		
 	}
 	
 	public boolean getIfAlquilado()
@@ -35,6 +34,32 @@ public class Disponibilidad {
 		return ubicacion;
 	}
 	
+	public boolean isAlquilado() {
+		return alquilado;
+	}
+
+	public void setAlquilado(boolean alquilado) {
+		this.alquilado = alquilado;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public void setFechaDevolucion(String fechaDevolucion) {
+		this.fechaDevolucion = fechaDevolucion;
+	}
+
+	public void setLugarDevolucion(String lugarDevolucion) {
+		this.lugarDevolucion = lugarDevolucion;
+	}
+
+	public void setFechaDisponibilidad(String fechaDisponibilidad) {
+		this.fechaDisponibilidad = fechaDisponibilidad;
+	}
+
+
+
 	public String getFechaDevolucion()
 	{
 		return fechaDevolucion;
@@ -49,9 +74,5 @@ public class Disponibilidad {
 	{
 		return fechaDisponibilidad;
 	}
-	
-	public Cliente getCliente()
-	{
-		return cliente;
-	}
+
 }

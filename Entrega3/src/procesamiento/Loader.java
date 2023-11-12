@@ -13,6 +13,7 @@ import modelo.Cliente;
 import modelo.ConductorExtra;
 import modelo.DatosLicencia;
 import modelo.DatosPago;
+import modelo.Disponibilidad;
 import modelo.Empleado;
 import modelo.Inventario;
 import modelo.Sede;
@@ -245,20 +246,13 @@ public class Loader {
 		private Map<String, Vehiculo> CargarCarros(){
 
 			Map<String, Vehiculo> titleInfoMap = new HashMap<>();
-			
+			boolean alquilado = false;
 
 			try {
-
-			
 
 	         BufferedReader reader = new BufferedReader(new FileReader("./Data/carrosInformacion"));
 
 	         String line;
-	         
-	         
-	         
-	         
-
 	 
 
 	         while ((line = reader.readLine()) != null) {
@@ -298,17 +292,34 @@ public class Loader {
 	                 int tarifaConductor = Integer.parseInt(datosCategoria1[6]);
 	                 
 	                 Tarifa tarifa = new Tarifa(tarifaAlta,tarifaBaja,tarifaSede,tarifaConductor);
-	                 
-	                
-	                 
+	                         
 	                 Categoria categoria = new Categoria(nombre,precio,tamaño,tarifa);
-	                     
-	                 Vehiculo vehiculo = new Vehiculo(title,marca,placa,modelo,color,transmision,categoria);
 	                 
+	                 String datosDisp = parts1[6].replace("{", "");
+	                 datosDisp = datosDisp.replace("}", "");
 	                 
+	                 String[] datosDisp1 = datosDisp.split(",");
 	                
+	                 if (datosDisp1[0].equals("false"))
+	                 {
+	                	 alquilado = false;
+	                 }
+	                 else if(datosDisp1[0].equals("true"))
+	                 {
+	                	 alquilado = true;
+	                 }
+	                 String ubicacion = datosDisp1[1];
+	                 String fechaDev = datosDisp1[2];
+	                 String lugarDev = datosDisp1[3];
+	                 String fechaDesp = datosDisp1[4];
 	                 
-
+	                 Disponibilidad dispo = new Disponibilidad(alquilado,ubicacion,fechaDev,lugarDev,fechaDesp);
+	                 
+	                 
+	                     
+	                 Vehiculo vehiculo = new Vehiculo(title,marca,placa,modelo,color,transmision,categoria,dispo);
+	                 
+	                 
 	                 titleInfoMap.put(title, vehiculo);
 
 	               
@@ -341,19 +352,52 @@ public class Loader {
 
 		
 
-		/*public void addCarros(String nombreSede,Vehiculo infoSede) {
+		public static void addCarros(String nombre,Vehiculo vehiculo)
+		{
+			String file = "./Data/carrosInformacion";
+		
+			String marca = vehiculo.getMarca();
+			String placa = vehiculo.getPlaca();
+			String modelo = vehiculo.getModelo();
+			String color = vehiculo.getColor();
+			String tipoTrans = vehiculo.getTipoTransmision();
+			
+			Disponibilidad disp = vehiculo.getDisponibilidad();
+			boolean alquilado = disp.getIfAlquilado();
+			String ubicacion = disp.getUbicacion();
+			String fechaDev = disp.getFechaDevolucion();
+			String lugarDev = disp.getLugarDevolucion();
+			String fechaDis = disp.getFechaDisponibilidad();
+			
+			Categoria cat = vehiculo.getCategoria();
+			String nomCat = cat.getCategoria();
+			double precio = cat.getPrecio();
+			String tamaño = cat.getTamaño();
+			
+			Tarifa taf = cat.getTarifa();	
+			double tarAlta = taf.getTarifaAlta();
+			double tarBaja = taf.getTarifaBaja();
+			double otraSede = taf.getTarifaOtraSede();
+			double conAd = taf.getTarifaConductor();
+			
+			String nuevaLinea = nombre+"="+marca+";"+placa+";"+modelo+";"+color+";"+tipoTrans+";"+"{"+nomCat+","+precio+","+tamaño+","+"{"+tarAlta+","+tarBaja+","+otraSede+","+conAd+"}"+";"+"{"+alquilado+","+ubicacion+","+fechaDev+","+lugarDev+","+fechaDis+"}";
 
-			Map<String, Vehiculo>  map = CargarCarros();
-
-			map.put(nombreSede, infoSede);
-
-			saveCarros(map);
-
+			try {
+				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
+				bufferedWriter.write(nuevaLinea);
+				bufferedWriter.newLine();
+				
+				bufferedWriter.close();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		
 
-		public void deleteCarros(String nombreSede) {
+		/*public void deleteCarros(String nombreSede) {
 
 			Map<String, Vehiculo>  map = CargarCarros();
 
@@ -482,9 +526,8 @@ public class Loader {
 	               	 String fechaVen = datosLicencia1[2];
 	               	 DatosLicencia claseLicencia = new DatosLicencia(numeroLic,paisExpedicion,fechaVen);
 	                 
-	               	 ArrayList<ConductorExtra> conductoresExtra = new ArrayList();
-	                 
-	               	 Cliente cliente = new Cliente(nombre,numId,fecha,nacionalidad,title,password,claseLicencia,conductoresExtra,claseTarjeta);
+	               	 
+	               	 Cliente cliente = new Cliente(nombre,numId,fecha,nacionalidad,title,password,claseLicencia,claseTarjeta, null);
 	                 
 
                 	 titleInfoMap.put(title, cliente);

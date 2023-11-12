@@ -8,11 +8,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import modelo.Cliente;
-import modelo.ConductorExtra;
-import modelo.DatosLicencia;
-import modelo.DatosPago;
-import modelo.Empleado;
 import modelo.*;
 import procesamiento.Compañia;
 import procesamiento.Loader;
@@ -157,6 +152,7 @@ public class Consola {
 			}
 
 		}
+		
 
 	///////////////////////////////////////////////////////////Log in/////////////////////////////////////
 
@@ -167,21 +163,114 @@ public class Consola {
 			String usuario = input("Por favor digite su usuario");		
 
 			String contraseña = input("Por favor digite su clave");	
-
-			Usuario elUsuario = compañia.logIn(usuario,contraseña);
 			
-			String reserva = input("Desea crear una reserva?");
-			
-			if (reserva.equals("si"))
+			if (usuario.contains("empleado"))
 			{
-				ejecutarCrearReserva(elUsuario);			
+				Empleado elEmpleado = compañia.logInEmpleado(usuario, contraseña);
+				
+				ejecutarManejoVehiculo(elEmpleado);
+			}
+			else if (usuario.contains("administrador"))
+			{
+				ejecutarMenuAdmin();
 			}
 			else
 			{
-				menuRegistro();
-			}
 
+				Cliente elCliente = compañia.logIn(usuario,contraseña);
+			
+				String reserva = input("Desea crear una reserva?");
+			
+				if (reserva.equals("si"))
+				{
+					ejecutarCrearReserva(elCliente);			
+				}
+				else
+				{
+					String modificacion = input("Desea modificar su reserva?");
+					if (modificacion.equals("si"))
+					{
+						ejecutarModificarReserva(elCliente);
+					}
+				}
+				
+			}
 		}
+
+		
+		
+///////////////////////////////////////////////////////////Menu admin///////////////////////////////////////////////
+
+		public void ejecutarMenuAdmin()
+		{
+			String x = input("Desea añadir o eliminar un vehiculo? añadir/eliminar");
+			
+			if (x.equals("añadir"))
+			{
+				String nombre = input("Ingrese el nombre del vehiculo");
+
+				String marca = input("Ingrese la marca del vehiculo");
+				
+				String placa= input("Ingrese la placa del vehiculo");
+				
+				String modelo = input("Ingrese el modelo del vehiculo");
+				
+				String color = input("Ingrese el color del vehiculo");
+				
+				String tipoTransmision = input("Ingrese el tipo de transimision del vehiculo");
+				
+				String ubicacion = input("Ingrese el nombre del vehiculo");
+				
+				String categoria = input("Ingrese la categoria del vehiculo");
+				
+				double precio = Integer.parseInt(("Ingrese el precio del vehiculo"));
+				
+				String tamaño = input("Ingrese el tamaño del vehiculo");
+				
+				double tarifaTempAlta = Integer.parseInt(("Ingrese la tarifa temporada alta del vehiculo"));
+				
+				double tarifaTempBaja = Integer.parseInt(("Ingrese la tarifa tempordad baja del vehiculo"));
+				
+				double tarifaOtraSede = Integer.parseInt(("Ingrese la tarifa cambio de sede del vehiculo"));
+				
+				double tarifaConductorAdicional = Integer.parseInt(("Ingrese la tarifa conductor adicional del vehiculo"));
+							
+			}
+			else if(x.equals("eliminar"))
+			{
+				String laPlaca = input("Ingrese la placa del vehiculo que desea eliminar");
+				
+				compañia.eliminarVehiculo(laPlaca);
+				
+			}
+			
+		}
+		
+///////////////////////////////////////////////////////////Manejo de los vehiculos///////////////////////////////////////////////
+		
+		public void ejecutarManejoVehiculo(Empleado empleado)
+		{
+			String placa = input("Ingrese la placa del vehiculo que desea buscar");
+			
+			Vehiculo vehiculo = compañia.buscarVehiculo(placa);
+			
+			String respuesta = compañia.conocerDisponibilidad(vehiculo);
+			
+			System.out.println(respuesta);
+			
+			String mantenimiento = input("Desea enviar el vehiculo a mantenimiento? si/no");
+			
+			if (mantenimiento.equals("si"))
+			{
+				String fechaDisponible = input("Ingrese la nueva fecha de disponibilidad del vehiculo");
+				Disponibilidad dispo = vehiculo.getDisponibilidad();
+				dispo.setFechaDevolucion(fechaDisponible);
+				
+			}
+			
+			
+		}
+		
 
 	///////////////////////////////////////////////////////////Sing in/////////////////////////////////////
 
@@ -225,9 +314,14 @@ public class Consola {
 				String nacionalidad = input("Por favor digite su nacionalidad");
 				
 				Empleado nuevoEmpleado = compañia.crearEmpleado(nombre, username, password, numID, nacionalidad, fechaNacimiento);
-				
+				if (nuevoEmpleado != null)
+					System.out.println("Se creo correctamente el usuario!");
+				else
+					System.out.println("No se creo el usuario");
 				
 			}
+			
+			ejecutarLogIn();
 			
 
 
@@ -235,14 +329,78 @@ public class Consola {
 		
 ///////////////////////////////////////////////////////////Creacion de Reserva////////////////////////////////////////////////
 		
-		public void ejecutarCrearReserva(Usuario usuario)
+		public void ejecutarCrearReserva(Cliente cliente)
 		{
+			String categoria = input("Que categoria de vehiculo desea reservar?");
+			
+			System.out.println("Si no sabe los siguientes datos por favor escriba 'n/a' y podra modificarlos despues.");
+			
+			String sedeRecogida = input("En que sede recogera el vehiculo?");
+			
+			String sedeDevuelta = input("En que sede devolvera el vehiculo?");
+			
+			String fecha = input("En que fecha recogera el vehiculo?");
+			
+			String rangoHoras = input("En que rango de horas recogera el vehiculo?");
+			
+			String temporada = input("En que temporada va a tomar el vehiculo? alta/baja");
+			
+			DatosPago datoTarjeta = cliente.getDatosMetodoPago();
+			
+			Cobros cobro = new Cobros(datoTarjeta);
+			
+			int numConExtra = Integer.parseInt(input("Cuantos conductores extra van a usar el vehiculo (si es el unico conductor escriba 0)"));
+			
+			ArrayList<ConductorExtra> lista = null;
+			for (int i = 0;i<numConExtra;i++)
+			{
+				System.out.println("Ingreso de informacion de conductores extra:");
+				String numero = input("Ingrese el numero de la licencia de conducir");
+				String pais = input("Ingrese el pais de expedicion");
+				String fechaL = input("Ingrese la fecha de vencimiento");
+				DatosLicencia licencia = new DatosLicencia(numero,pais,fechaL);
+				ConductorExtra conductor = new ConductorExtra(licencia);
+				lista.add(conductor);
+			}
 			
 			
+			
+			double precio = compañia.crearReserva(cliente, categoria, sedeRecogida, sedeDevuelta, cobro, fecha, rangoHoras,temporada, lista);
+			precio = precio*0.3;
+			System.out.println("Se hara el cobro del 30% que suma: "+precio);
 	
 		}
 		
+
+///////////////////////////////////////////////////////////Modificacion de Reserva////////////////////////////////////////////////
 		
+		public void ejecutarModificarReserva(Cliente cliente)
+		{
+			boolean x = true;
+			while (x)
+			{ 
+				System.out.println("Que desea modificar entre:");
+				System.out.println("1. Sede de recogida");
+				System.out.println("2. Sede de entrega");
+				System.out.println("3. Fecha de entrega");
+				System.out.println("4. Rango de horas");
+				
+				String opcion = input("Escriba el numero de la opcion que desea");
+				
+				String modificacion = input("Escriba la modificacion");
+				
+				compañia.modificarReserva(cliente, modificacion, opcion);
+				
+				String bucle = input("Quiere modificar algo mas? si/no");
+				
+				if (bucle.equals("no"))
+				{
+					x = false;
+				}
+				
+				
+			}
+		}
 		
 ///////////////////////////////////////////////////////////cargar archivos/////////////////////////////////////
 

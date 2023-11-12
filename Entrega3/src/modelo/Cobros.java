@@ -5,13 +5,12 @@ public class Cobros {
 	
 	private DatosPago infoTarjeta;
 	
-	private boolean entregaDondeRecogio;
+
 	
 	
-	public Cobros(DatosPago laInfoTarjeta, boolean laEntregaDondeRecogio)
+	public Cobros(DatosPago laInfoTarjeta)
 	{
 		this.infoTarjeta = laInfoTarjeta;
-		this.entregaDondeRecogio = laEntregaDondeRecogio;
 		
 	}
 	
@@ -21,10 +20,7 @@ public class Cobros {
 		return infoTarjeta;
 	}
 	
-	public boolean getEntregaDondeRecogio()
-	{
-		return entregaDondeRecogio;
-	}
+	
 	
 
 }

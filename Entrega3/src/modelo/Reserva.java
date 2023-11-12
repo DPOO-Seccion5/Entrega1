@@ -1,15 +1,16 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Reserva {
 	
 	
-	private String ubicacion;
 	
-	private Vehiculo vehiculo;
+	private String categoria;
 	
-	private Sede sedeRecogida;
+	private String sedeRecogida;
 	
-	private Sede sedeDevuelta;
+	private String sedeDevuelta;
 	
 	private Cobros cobro;
 	
@@ -17,34 +18,82 @@ public class Reserva {
 	
 	private String rangoHoras;
 	
-	public Reserva(String laUbicacion, Vehiculo elVehiculo, Sede laSedeRecogida, Sede laSedeDevuelta, Cobros elCobro, String laFecha, String elRangoHoras)
-	{
-		this.ubicacion = laUbicacion;
-		this.vehiculo = elVehiculo;
+	private ArrayList<ConductorExtra> conductoresExtra;
+	
+	public Reserva(String laCategoria, String laSedeRecogida, String laSedeDevuelta, Cobros elCobro, String laFecha, String elRangoHoras, ArrayList<ConductorExtra> conExtra)
+	{  
+		
+		this.categoria = laCategoria;
 		this.sedeRecogida = laSedeRecogida;
 		this.sedeDevuelta = laSedeDevuelta;
 		this.cobro = elCobro;
 		this.fecha = laFecha;
 		this.rangoHoras = elRangoHoras;
+		this.conductoresExtra = conExtra;
 	}
 	
 	
-	public String getUbicacion()
+	
+	public ArrayList<ConductorExtra> getConductoresExtra() {
+		return conductoresExtra;
+	}
+
+
+
+	public void setConductoresExtra(ArrayList<ConductorExtra> conductoresExtra) {
+		this.conductoresExtra = conductoresExtra;
+	}
+
+
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+
+
+	public String getCategoria()
 	{
-		return ubicacion;
+		return categoria;
 	}
 	
-	public Vehiculo getVehiculo()
-	{
-		return vehiculo;
+
+	public void setVehiculo(String laCategoria) {
+		this.categoria = laCategoria;
 	}
-	
-	public Sede getSedeRecogida()
+
+
+	public void setSedeRecogida(String sedeRecogida) {
+		this.sedeRecogida = sedeRecogida;
+	}
+
+
+	public void setSedeDevuelta(String sedeDevuelta) {
+		this.sedeDevuelta = sedeDevuelta;
+	}
+
+
+	public void setCobro(Cobros cobro) {
+		this.cobro = cobro;
+	}
+
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+
+	public void setRangoHoras(String rangoHoras) {
+		this.rangoHoras = rangoHoras;
+	}
+
+
+	public String getSedeRecogida()
 	{
 		return sedeRecogida;
 	}
 	
-	public Sede getSedeDevuelta()
+	public String getSedeDevuelta()
 	{
 		return sedeDevuelta;
 	}

@@ -19,8 +19,10 @@ public class Vehiculo {
 	
 	private Categoria categoria;
 	
+	private Disponibilidad disponibilidad;
 	
-	public Vehiculo(String elNombre,String laMarca, String laPlaca, String elModelo, String elColor, String elTipoTransmision, Categoria laCategoria) 
+	
+	public Vehiculo(String elNombre,String laMarca, String laPlaca, String elModelo, String elColor, String elTipoTransmision, Categoria laCategoria, Disponibilidad laDisponibilidad) 
 	{
 		this.nombre = elNombre;
 		this.marca = laMarca;
@@ -29,9 +31,42 @@ public class Vehiculo {
 		this.color = elColor;
 		this.tipoTransmision = elTipoTransmision;
 		this.categoria = laCategoria;
+		this.disponibilidad = laDisponibilidad;
 	
 	}
 	
+	public Disponibilidad getDisponibilidad() {
+		return disponibilidad;
+	}
+
+	public void setDisponibilidad(Disponibilidad disponibilidad) {
+		this.disponibilidad = disponibilidad;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public void setTipoTransmision(String tipoTransmision) {
+		this.tipoTransmision = tipoTransmision;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public String getMarca()
 	{
 		return marca;

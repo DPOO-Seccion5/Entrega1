@@ -23,10 +23,10 @@ public class Cliente extends Usuario {
 	
 	private DatosLicencia licencia;
 	
-	private ArrayList<ConductorExtra> conductoresExtra;
 	
 	
-	public Cliente(String elNombre, String elNumID,String laFechaNacimiento, String laNacionalidad, String elUsername, String elPassword, DatosLicencia laLicencia, ArrayList<ConductorExtra> losConductoresExtra, DatosPago losDatosMetodoPago)
+	
+	public Cliente(String elNombre, String elNumID,String laFechaNacimiento, String laNacionalidad, String elUsername, String elPassword, DatosLicencia laLicencia, DatosPago losDatosMetodoPago, Reserva laReserva)
 	{
 		this.nombre = elNombre;
 		this.numID = elNumID;
@@ -35,8 +35,8 @@ public class Cliente extends Usuario {
 		this.username = elUsername;
 		this.password = elPassword;
 		this.licencia = laLicencia;
-		this.conductoresExtra = losConductoresExtra;
 		this.datosMetodoPago = losDatosMetodoPago;
+		this.reserva = laReserva;
 	}
 	
 	
@@ -75,25 +75,63 @@ public class Cliente extends Usuario {
 		return reserva;
 	}
 	
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
+
 	public DatosLicencia getLicencia()
 	{
 		return licencia;
 	}
 	
-	public List<ConductorExtra> getConductoresExtra()
-	{
-		return conductoresExtra;
-	}
 	
-	
-	public Reserva crearReserva(String ubicacion, Vehiculo vehiculo, Sede sedeRecogida,Sede sedeDevuelta,Cobros cobro, String fecha, String rangoHoras)
-	{
-		Reserva nuevaReserva = new Reserva(ubicacion, vehiculo, sedeRecogida,sedeDevuelta,cobro,fecha,rangoHoras);
-		return nuevaReserva;
+
+
+
+	public String getNumID() {
+		return numID;
 	}
 
 
+	public void setNumID(String numID) {
+		this.numID = numID;
+	}
 
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public void setDatosMetodoPago(DatosPago datosMetodoPago) {
+		this.datosMetodoPago = datosMetodoPago;
+	}
+
+
+	public void setLicencia(DatosLicencia licencia) {
+		this.licencia = licencia;
+	}
 
 
 	@Override
