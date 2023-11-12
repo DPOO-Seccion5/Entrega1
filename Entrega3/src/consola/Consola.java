@@ -21,7 +21,7 @@ public class Consola {
 
 	///////////////////////////////////////////////////////////Aplicacion/////////////////////////////////////
 
-		public void ejecutarAplicacion()
+		public void ejecutarAplicacion() throws IOException
 
 		{
 
@@ -108,7 +108,7 @@ public class Consola {
 
 	///////////////////////////////////////////////////////////menuRegistro/////////////////////////////////////
 
-		public void menuRegistro()
+		public void menuRegistro() throws IOException
 
 		{
 
@@ -156,7 +156,7 @@ public class Consola {
 
 	///////////////////////////////////////////////////////////Log in/////////////////////////////////////
 
-		private void ejecutarLogIn()
+		private void ejecutarLogIn() throws IOException
 
 		{
 
@@ -201,7 +201,7 @@ public class Consola {
 		
 ///////////////////////////////////////////////////////////Menu admin///////////////////////////////////////////////
 
-		public void ejecutarMenuAdmin()
+		public void ejecutarMenuAdmin() throws IOException
 		{
 			String x = input("Desea añadir o eliminar un vehiculo? añadir/eliminar");
 			
@@ -274,7 +274,7 @@ public class Consola {
 
 	///////////////////////////////////////////////////////////Sing in/////////////////////////////////////
 
-		private void ejecutarSingIn()
+		private void ejecutarSingIn() throws IOException
 		{
 			String respuesta = input("Es cliente o empleado?");
 			Loader loader = new Loader();
@@ -449,7 +449,7 @@ public class Consola {
 
 	///////////////////////////////////////////////////////////main/////////////////////////////////////
 
-		public static void main(String[] args)
+		public static void main(String[] args) throws IOException
 
 		{
 

@@ -1,5 +1,6 @@
 package procesamiento;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import procesamiento.Loader;
 
@@ -257,7 +258,7 @@ public class Compañia {
 		Loader.addCarros(nombre, vehiculo);
 	}
 
-	public void eliminarVehiculo(String placa)
+	public void eliminarVehiculo(String placa) throws IOException
 	{
 		
 		ArrayList<Vehiculo> lista = (ArrayList<Vehiculo>) inventario.getVehiculos();
@@ -269,6 +270,7 @@ public class Compañia {
 				lista.remove(vehiculo);
 			}
 		}
+		Loader.deleteCarros(placa);
 	}
 	
 }

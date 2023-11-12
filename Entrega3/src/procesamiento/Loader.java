@@ -10,12 +10,14 @@ import java.util.Map.Entry;
 
 import modelo.Categoria;
 import modelo.Cliente;
+import modelo.Cobros;
 import modelo.ConductorExtra;
 import modelo.DatosLicencia;
 import modelo.DatosPago;
 import modelo.Disponibilidad;
 import modelo.Empleado;
 import modelo.Inventario;
+import modelo.Reserva;
 import modelo.Sede;
 import modelo.Tarifa;
 import modelo.Vehiculo;
@@ -395,78 +397,48 @@ public class Loader {
 			}
 		}
 
-		
 
-		/*public void deleteCarros(String nombreSede) {
+	
+		public static void deleteCarros(String placa) throws IOException {
 
-			Map<String, Vehiculo>  map = CargarCarros();
-
+			String archivo = "./Data/carrosInformacion";
 			
-
-			 if (map.containsKey(nombreSede)) {
-
-	             map.remove(nombreSede);
-
-			 }
-
-			 saveCarros(map);
-
-		}
-
-		
-
-		public void editCarros(String nombreSede, Vehiculo infoEditada) {
-
-			Map<String, Vehiculo>  map = CargarCarros();
-
-			if (map.containsKey(nombreSede)) {
-
-	            Vehiculo editedInfo = infoEditada;
-
-	            map.put(nombreSede, editedInfo);
-
-			}
-
-			saveCarros(map);
-
-			
-
-		}
-
-		public void saveCarros(Map<String, Vehiculo> map) {
-
-			 try {
-
-			 BufferedWriter writer = new BufferedWriter(new FileWriter("./Data/carrosInformacion"));
-
-	         for (Entry<String, Vehiculo> entry : map.entrySet()) {
-
-	             writer.write(entry.getKey() + "=" + entry.getValue() + "\n");
-
-	         }
-
-	         writer.close();
-
-	 
-
-	         System.out.println("Documento Editado correctamente.");
-
-			 }
-
-			 catch(IOException e){
-
-					e.printStackTrace();
-
+			try {
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(archivo));
+				StringBuilder contenido = new StringBuilder();
+				
+				String linea = bufferedReader.readLine();
+				
+				while (linea != null)
+				{
+					String[] lista = linea.split("=");
 					
-
+					String[] lista1 = lista[1].split(";");
+					
+					if (lista1[1].equals(placa))
+					{}
+					else
+					{
+						contenido.append(linea).append(System.lineSeparator());
+					}
+					
 				}
+				bufferedReader.close();
+				BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(archivo));
+	            bufferedWriter.write(contenido.toString());
+	            bufferedWriter.close();
+				
+				
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+
+			 
 
 		}
-		*/
-
-		
-
-		
 
 		
 
@@ -525,9 +497,60 @@ public class Loader {
 	               	 String paisExpedicion = datosLicencia1[1];
 	               	 String fechaVen = datosLicencia1[2];
 	               	 DatosLicencia claseLicencia = new DatosLicencia(numeroLic,paisExpedicion,fechaVen);
-	                 
 	               	 
-	               	 Cliente cliente = new Cliente(nombre,numId,fecha,nacionalidad,title,password,claseLicencia,claseTarjeta, null);
+	               	 String datosReserva = parts1[7].replace("{", "");
+	               	 datosReserva = datosReserva.replace("}", "");
+	               	 String[] datosRes = datosReserva.split(",");
+	               	 
+	               	 Reserva reserva = null;
+	               	 if (datosRes.length == 0)
+	               	 {
+	               		 reserva = null;
+	               		 System.out.println("Es vacio");
+	               	 }
+	               	 else
+	               	 {
+	               		 String categoria = datosRes[0];
+	               		 String sedeRe = datosRes[1];
+	               		 String sedeDe = datosRes[2];
+	               		 String num = datosRes[3];
+	               		String fechaEx = datosRes[4];
+	               		String nombreTit = datosRes[5];
+	               		String numSeg = datosRes[6];
+	               		DatosPago tarjeta = new DatosPago(num,fechaEx,nombreTit,numSeg);
+	               		Cobros cobro = new Cobros(claseTarjeta);
+	               		String fechaRes = datosRes[7];
+	               		String rangoHora = datosRes[8];
+	               		String conExtra = datosRes[9].replace("[", "");
+	               		conExtra = conExtra.replace("]", "");
+	               		String[] conExLista = conExtra.split(",");
+	               		 ArrayList<ConductorExtra> conEx = null; 
+	               		 String numL = "";
+	               		 String paisExp = "";
+	               		 String fechaExp = "";
+	               		 for(int x= 0; x< conExLista.length;x++)
+	               		 {
+	               			if((x%3)==1)
+	               			{
+	               				numL = conExLista[x];
+	               			}
+	               			else if ((x%2)==2)
+	               			{
+	               				paisExp = conExLista[x];
+	               			}
+	               			else if ((x%3)==0)
+	               			{
+	               				fechaExp = conExLista[x];
+	               				DatosLicencia datosLic = new DatosLicencia(numL,paisExp,fechaExp);
+	               				ConductorExtra conduExtra = new ConductorExtra(datosLic);
+	               				conEx.add(conduExtra);
+	               			}		 
+	               			 
+	               		 }
+	               		 reserva = new Reserva(categoria, sedeRe, sedeDe, cobro, fechaRes, rangoHora, conEx);
+	               	 }
+	               	 
+	               	 Cliente cliente = new Cliente(nombre,numId,fecha,nacionalidad,title,password,claseLicencia,claseTarjeta, reserva);
 	                 
 
                 	 titleInfoMap.put(title, cliente);
@@ -569,7 +592,7 @@ public class Loader {
 					
 			
 			try {
-				String data = username +"="+nombre+";"+fechaNacimiento+";"+numID+";"+nacionalidad+";"+password+";"+"{"+numeroTarjeta+","+fechaVencimiento+","+nombreTitular+","+cvc+"}"+";"+"{"+numeroLicencia+","+paisExpedicion+","+fechaNacimiento+"}";
+				String data = username +"="+nombre+";"+fechaNacimiento+";"+numID+";"+nacionalidad+";"+password+";"+"{"+numeroTarjeta+","+fechaVencimiento+","+nombreTitular+","+cvc+"}"+";"+"{"+numeroLicencia+","+paisExpedicion+","+fechaNacimiento+"}"+";"+"{"+","+","+","+","+","+","+"{"+"}"+"}";
 				
 				File file = new File("./Data/listaClientes");
 				fw = new FileWriter(file.getAbsoluteFile(),true);
@@ -603,41 +626,26 @@ public class Loader {
 
 		
 
-		
-
-		
-
-		/*public void deleteClientes(String nombreSede) {
-
-			Map<String, Cliente>  map = CargarListaClientes();
-
+		private void editClientes(Reserva reserva, Cliente cliente) {
 			
-
-			 if (map.containsKey(nombreSede)) {
-
-	             map.remove(nombreSede);
-
-			 }
-
-			 saveClientes(map);
-
-		}
-
-		
-
-		private void editClientes(String nombreSede, Cliente infoEditada) {
-
-			Map<String, Cliente>  map = CargarListaClientes();
-
-			if (map.containsKey(nombreSede)) {
-
-	            Cliente editedInfo = infoEditada;
-
-	            map.put(nombreSede, editedInfo);
-
-			}
-
-			saveClientes(map);
+			String archivo = "./Data/listaClientes";
+			
+			String usuario = cliente.getUsername();
+			
+			String categoria = reserva.getCategoria();
+			
+			String sedeRecogida = reserva.getSedeRecogida();
+			
+			String sedeDevuelta = reserva.getSedeDevuelta();
+			
+			Cobros cobro = reserva.getCobro();
+			
+			DatosPago infoTar = cobro.getInfoTarjeta();
+			
+			String fecha = reserva.getFecha();
+			
+			
+			
 
 			
 
@@ -672,7 +680,7 @@ public class Loader {
 				}
 
 		}
-		*/
+		
 
 		
 
