@@ -502,6 +502,7 @@ public class Loader {
 	               	 String paisExpedicion = datosLicencia1[1];
 	               	 String fechaVen = datosLicencia1[2];
 	               	 DatosLicencia claseLicencia = new DatosLicencia(numeroLic,paisExpedicion,fechaVen);
+	               	
 	               	 
 	               	 String datosReserva = parts1[7].replace("{", "");
 	               	 datosReserva = datosReserva.replace("}", "");
@@ -596,7 +597,7 @@ public class Loader {
 					
 			
 			try {
-				String data = username +"="+nombre+";"+fechaNacimiento+";"+numID+";"+nacionalidad+";"+password+";"+"{"+numeroTarjeta+","+fechaVencimiento+","+nombreTitular+","+cvc+"}"+";"+"{"+numeroLicencia+","+paisExpedicion+","+fechaNacimiento+"}"+";"+"{"+","+","+","+","+","+","+"{"+"}"+"}";
+				String data = username +"="+nombre+";"+fechaNacimiento+";"+numID+";"+nacionalidad+";"+password+";"+"{"+numeroTarjeta+","+fechaVencimiento+","+nombreTitular+","+cvc+"}"+";"+"{"+numeroLicencia+","+paisExpedicion+","+fechaNacimiento+"}"+";"+"{"+","+","+","+","+","+","+","+","+"["+"]"+"}";
 				
 				File file = new File("./Data/listaClientes");
 				fw = new FileWriter(file.getAbsoluteFile(),true);
@@ -676,7 +677,7 @@ public class Loader {
 							String numlic = dl.getNumero();
 							String paisex = dl.getPaisExpedicion();
 							String fechaE = dl.getFechaNacimiento();
-							nuevalinea += numlic+","+paisex+","+fechaE+",";
+							nuevalinea += numlic+":"+paisex+":"+fechaE+":";
 						}
 						info[7] = info[7]+nuevalinea+"]"+"}";
 						String lineaFinal = parts[0]+"="+info[0]+";"+info[1]+";"+info[2]+";"+info[3]+";"+info[4]+";"+info[5]+";"+info[6]+";"+info[7];
