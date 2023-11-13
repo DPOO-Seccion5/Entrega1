@@ -12,10 +12,14 @@ public class PanelIncioSesionUsuario extends JPanel {
     private JLabel infoLabel;
     private JPanel cardPanel;
     private CardLayout cardLayout;
+    private VentanaInicio ventanaInicio;
 
     public PanelIncioSesionUsuario(JPanel cardPanel, CardLayout cardLayout) {
     	this.cardPanel = cardPanel;
         this.cardLayout = cardLayout;
+    	this.ventanaInicio = new VentanaInicio();
+        
+    	ventanaInicio.cargar_datos();
     	
         setLayout(new BorderLayout());
         
@@ -58,16 +62,35 @@ public class PanelIncioSesionUsuario extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-              
-                if (username.contains("1")){
-                	 cardLayout.show(cardPanel, "panelEmpleado");
+                
+                String usernameMayuscula = username.toUpperCase();
+                if (usernameMayuscula.contains("EMPLEADO")){
+                	Boolean bool =ventanaInicio.empleadoLogIn(username, password);
+                	if(bool == true) {
+                		cardLayout.show(cardPanel, "panelEmpleado");
+                	}
+                	else {
+                		JOptionPane.showMessageDialog(null, "No se encontro el usuario, intente otra vez o registrese como uno nuevo ");
+                		
+                	}
+                	 
                 }
                 else {
-                	cardLayout.show(cardPanel, "panelUsuario");
+                	Boolean bool =ventanaInicio.clienteLogIn(username, password);
+                	if(bool == true) {
+                		cardLayout.show(cardPanel, "panelUsuario");
+                	}
+                	else {
+                		JOptionPane.showMessageDialog(null, "No se encontro el usuario, intente otra vez o registrese como uno nuevo ");
+                		
+                	}
+                	 
+                }
+                	
                 }
                
             }
-        });
+        );
         
        
         

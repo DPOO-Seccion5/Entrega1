@@ -153,9 +153,47 @@ public class Consola {
 
 		}
 		
-
+///////////////////////////////////////////////////////////Funciones de conexion/////////////////////////////////////
+		
+		public Boolean inicioSesionEmpleado(String usuario, String clave) {
+			Empleado elEmpleado = compañia.logInEmpleado(usuario, clave);
+			Boolean bool = false;
+			if (elEmpleado != null) {
+				bool= true;
+				
+				
+			}
+			return bool;
+			
+		}
+		
+		public Boolean inicioSesionCliente(String usuario, String clave) {
+			Cliente elCliente = compañia.logIn(usuario, clave);
+			Boolean bool = false;
+			if (elCliente != null) {
+				bool= true;
+				
+				
+			}
+			return bool;
+			
+		}
+		
+		public void registroCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc) {
+			Cliente informacion = compañia.crearCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numeroLicencia, paisExpedicion, numeroTarjeta, fechaVencimiento, nombreTitular, cvc);
+		}
+		
+		
+		
+		
+		
+		
 	///////////////////////////////////////////////////////////Log in/////////////////////////////////////
 
+		
+		
+		
+		
 		private void ejecutarLogIn() throws IOException
 
 		{

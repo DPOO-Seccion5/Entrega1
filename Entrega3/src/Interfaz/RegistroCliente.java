@@ -12,13 +12,19 @@ public class RegistroCliente extends JPanel{
 	 private JTextField[] textFieldsPago;
 	private JPanel cardPanel;
 	private CardLayout cardLayout;
+	private VentanaInicio ventanaInicio;
 
  public RegistroCliente(JPanel cardPanel, CardLayout cardLayout) {
 	 
 	 this.cardPanel = cardPanel;
      this.cardLayout = cardLayout;
 	 
+     this.ventanaInicio = new VentanaInicio();
+     
+ 	 ventanaInicio.cargar_datos();
+     
 	 setLayout(new BorderLayout());
+	 
 
      // Title Label
      JLabel titleLabel = new JLabel("Registrese como Cliente");
@@ -81,23 +87,29 @@ public class RegistroCliente extends JPanel{
      // Button to send information with a smaller size
      JButton sendButton = new JButton("Enviar");
      sendButton.setPreferredSize(new Dimension(100, 30)); // Smaller button
+     
+     
+     
      sendButton.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
-             StringBuilder info = new StringBuilder();
-             for (int i = 0; i < pago.length; i++) {
-                 info.append(" ").append(pago[i]).append(": ").append(textFieldsPago[i].getText()).append("\n");
-             }
+        	 String numeroTarjeta = (String)textFieldsPago[0].getText();
+             String fechaVencimiento = (String)textFieldsPago[1].getText();
+             String nombreTitular = (String)textFieldsPago[2].getText();
+             String cvc = (String)textFieldsPago[3].getText();
              
-             for (int i = 0; i < data.length; i++) {
-                 info.append(" ").append(data[i]).append(": ").append(textFields[i].getText()).append("\n");
-             }
-             for (int i = 0; i < licencia.length; i++) {
-                 info.append(" ").append(licencia[i]).append(": ").append(textFieldsLicencia[i].getText()).append("\n");
-             }
-             infoLabel.setText(info.toString());
-             // La lista queda al reves comenzando en Numero de Tarjeta y terminando en Fecha de Expedicion
+             String nombre = (String)textFields[0].getText();
+             String fechaNacimiento= (String)textFields[1].getText();
+             String numID =(String)textFields[2].getText();
+             String nacionalidad= (String)textFields[3].getText();
+             String username = (String)textFields[4].getText();
+             String password = (String)textFields[5].getText();
              
+             String numeroLicencia = (String)textFieldsLicencia[0].getText();
+             String paisExpedicion = (String)textFieldsLicencia[1].getText();
+             
+        	 ventanaInicio.registroCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numeroLicencia, paisExpedicion, numeroTarjeta, fechaVencimiento, nombreTitular, cvc);
+          	JOptionPane.showMessageDialog(null, nombre+ numID+ fechaNacimiento+ nacionalidad+ username+ password+ numeroLicencia+ paisExpedicion+ numeroTarjeta+ fechaVencimiento+ nombreTitular+ cvc);
              cardLayout.show(cardPanel, "panelIU");
          }
      });
@@ -108,9 +120,9 @@ public class RegistroCliente extends JPanel{
      	returnButton.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
-             
+             	
              	cardLayout.show(cardPanel, "mainPanel");
-             
+             	
             
          }
      	});

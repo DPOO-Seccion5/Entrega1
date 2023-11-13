@@ -1,5 +1,11 @@
 package Interfaz;
 import javax.swing.*;
+
+import consola.Consola;
+import procesamiento.Compañia;
+import modelo.Cliente;
+import modelo.Empleado;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,11 +13,48 @@ import java.awt.event.ActionListener;
 public class VentanaInicio  extends JFrame{
 	private static CardLayout cardLayout;
     private static JPanel cardPanel;
-
+    private Consola consola;
+    private Compañia compania;
+    
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
+    
+   public void cargar_datos() {
+    	this.consola = new Consola();
+    	
+    	consola.cargar_los_datos();
+    	
+    	
+    }
+  public Boolean empleadoLogIn(String usuario, String clave) {
+	 Boolean bool= consola.inicioSesionEmpleado(usuario, clave);
+	  
+	 return bool;
 
+  }
+  public Boolean clienteLogIn(String usuario, String clave) {
+		 Boolean bool= consola.inicioSesionCliente(usuario, clave);
+		  
+		 return bool; 
+	  }  
+    
+  public void registroCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc) {
+		consola.registroCliente(nombre, numID, fechaNacimiento, nacionalidad, username, password, numeroLicencia, paisExpedicion, numeroTarjeta, fechaVencimiento, nombreTitular, cvc);	
+	}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     private static void createAndShowGUI() {
         JFrame frame = new JFrame("Simple Swing App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,6 +142,8 @@ public class VentanaInicio  extends JFrame{
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	
+            	
                 cardLayout.show(cardPanel, "panelIU");
             }
         });
