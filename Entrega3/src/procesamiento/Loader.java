@@ -590,6 +590,8 @@ public class Loader {
 		}
 		
 		
+		
+		
 		public static void saveCliente(String nombre,String numID, String fechaNacimiento, String nacionalidad, String username, String password, String numeroLicencia, String paisExpedicion,String numeroTarjeta, String fechaVencimiento, String nombreTitular, String cvc)
 		{
 			FileWriter fw = null;
