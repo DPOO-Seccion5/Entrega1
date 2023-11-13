@@ -445,6 +445,11 @@ public class Loader {
 		private Map<String, Cliente> CargarListaClientes(){
 
 			Map<String, Cliente> titleInfoMap = new HashMap<>();
+			ArrayList<ConductorExtra> conEx = new ArrayList<>();; 
+      		String numL = "";
+      		String paisExp = "";
+      	 	String fechaExp = "";
+      	 	Reserva reserva = null;
 
 			try {
 
@@ -502,7 +507,7 @@ public class Loader {
 	               	 datosReserva = datosReserva.replace("}", "");
 	               	 String[] datosRes = datosReserva.split(",");
 	               	 
-	               	 Reserva reserva = null;
+	               	 
 	               	 if (datosRes.length == 0)
 	               	 {
 	               		 reserva = null;
@@ -510,24 +515,23 @@ public class Loader {
 	               	 }
 	               	 else
 	               	 {
+	               		 
 	               		 String categoria = datosRes[0];
 	               		 String sedeRe = datosRes[1];
 	               		 String sedeDe = datosRes[2];
 	               		 String num = datosRes[3];
-	               		String fechaEx = datosRes[4];
-	               		String nombreTit = datosRes[5];
-	               		String numSeg = datosRes[6];
-	               		DatosPago tarjeta = new DatosPago(num,fechaEx,nombreTit,numSeg);
-	               		Cobros cobro = new Cobros(claseTarjeta);
-	               		String fechaRes = datosRes[7];
-	               		String rangoHora = datosRes[8];
-	               		String conExtra = datosRes[9].replace("[", "");
-	               		conExtra = conExtra.replace("]", "");
-	               		String[] conExLista = conExtra.split(",");
-	               		 ArrayList<ConductorExtra> conEx = null; 
-	               		 String numL = "";
-	               		 String paisExp = "";
-	               		 String fechaExp = "";
+	               		 String fechaEx = datosRes[4];
+	               		 String nombreTit = datosRes[5];
+	               		 String numSeg = datosRes[6];
+	               		 DatosPago tarjeta = new DatosPago(num,fechaEx,nombreTit,numSeg);
+	               		 Cobros cobro = new Cobros(claseTarjeta);
+	               		 String fechaRes = datosRes[7];
+	               		 String rangoHora = datosRes[8];
+	               		
+	               	 	 String conExtra = datosRes[9].replace("[", "");
+	               		 conExtra = conExtra.replace("]", "");
+	               		 String[] conExLista = conExtra.split(":");
+	               		 
 	               		 for(int x= 0; x< conExLista.length;x++)
 	               		 {
 	               			if((x%3)==1)
